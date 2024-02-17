@@ -3,7 +3,6 @@ import time
 import pandas as pd
 
 # Filenames
-
 chicago = 'chicago.csv'
 new_york_city = 'new_york_city.csv'
 washington = 'washington.csv'
@@ -83,7 +82,7 @@ def popular_month(city_file):
     Returns:
         (str) The most popular month
     """
-    # complete function
+    # read csv file
     df = pd.read_csv(city_file)
 
     # convert the Start Time column to datetime
@@ -104,7 +103,7 @@ def popular_day(city_file):
     Returns:
         (str) The most popular day of week
     """
-    # complete function
+    # read csv file
     df = pd.read_csv(city_file)
 
     # convert the Start Time column to datetime
@@ -126,7 +125,7 @@ def popular_hour(city_file):
     Returns:
         (str) The most popular hour of day
     """
-    # complete function
+    # read csv file
     df = pd.read_csv(city_file)
 
     # convert the Start Time column to datetime
@@ -148,7 +147,7 @@ def trip_duration(city_file):
         (str) The total trip duration
         (str) The average trip duration
     """
-    # complete function
+    # read csv file
     df = pd.read_csv(city_file)
 
     # find the most popular hour
@@ -166,7 +165,7 @@ def popular_stations(city_file):
             (str) The most popular start station
             (str) The most popular end station
     """
-    # complete function
+    # read csv file
     df = pd.read_csv(city_file)
 
     # find the most popular hour
@@ -183,7 +182,7 @@ def popular_trip(city_file):
         Returns:
             (str) The most popular trip
     """
-    # complete function
+    # read csv file
     df = pd.read_csv(city_file)
 
     # extract start station and end station to create new columns
@@ -201,7 +200,7 @@ def users(city_file):
     Returns:
         (str) The user type count
     """
-    # complete function
+    # read csv file
     df = pd.read_csv(city_file)
 
     # get value counts for each user type
@@ -217,7 +216,7 @@ def gender(city_file):
     Returns:
         (str) The gender count
     """
-    # complete function
+    # read csv file
     df = pd.read_csv(city_file)
 
     # get value counts for each user type
@@ -238,7 +237,7 @@ def birth_years(city_file):
         (str) The most recent (i.e. youngest user) birth years
         (str) The most popular birth years
     """
-    # complete function
+    # read csv file
     df = pd.read_csv(city_file)
 
     if 'Birth Year' not in df.columns:
