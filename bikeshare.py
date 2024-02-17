@@ -271,6 +271,30 @@ def display_data(city_file):
                         'Type \'yes\' or \'no\'.\n')
 
 
+def calculate_statistic(function, city, time_period=None):
+    """Helper function to calculate and print statistic along with execution time.
+
+    Args:
+        function: The statistical function to call.
+        city: The city for which statistics are being calculated.
+        time_period: The time period filter for the statistic, if applicable.
+    """
+    start_time = time.time()
+    if time_period:
+        result = function(city, time_period)
+    else:
+        result = function(city)
+
+    if isinstance(result, tuple):  # Handling functions returning multiple values
+        for res in result:
+            print(res)
+    else:
+        print(result)
+
+    print("That took %s seconds." % (time.time() - start_time))
+    print("Calculating the next statistic...")
+
+
 def statistics():
     """Calculates and prints out the descriptive statistics about a city and time period
     specified by the user via raw input.
@@ -280,114 +304,25 @@ def statistics():
     Returns:
         none.
     """
-    # Filter by city (Chicago, New York, Washington)
     city = get_city()
-
-    # Filter by time period (month, day, none)
     time_period = get_time_period()
 
     print('Calculating the first statistic...')
 
-    # What is the most popular month for start time?
     if time_period == 'none':
-        start_time = time.time()
+        calculate_statistic(popular_month, city)
 
-        # call popular_month function and print the results
-        result = popular_month(city)
-        print(result)
-
-        print("That took %s seconds." % (time.time() - start_time))
-        print("Calculating the next statistic...")
-
-    # What is the most popular day of week (Monday, Tuesday, etc.) for start time?
     if time_period == 'none' or time_period == 'month':
-        start_time = time.time()
+        calculate_statistic(popular_day, city)
 
-        # call popular_day function and print the results
-        result = popular_day(city)
-        print(result)
-
-        print("That took %s seconds." % (time.time() - start_time))
-        print("Calculating the next statistic...")
-
-    start_time = time.time()
-
-    # What is the most popular hour of day for start time?
-    # call popular_hour function and print the results
-    result = popular_hour(city)
-    print(result)
-
-    print("That took %s seconds." % (time.time() - start_time))
-    print("Calculating the next statistic...")
-    start_time = time.time()
-
-    # What is the total trip duration and average trip duration?
-    # call trip_duration function and print the results
-    result = popular_trip(city)
-    print(result)
-
-    print("That took %s seconds." % (time.time() - start_time))
-    print("Calculating the next statistic...")
-    start_time = time.time()
-
-    # What is the most popular start station and most popular end station?
-    # call popular_stations function and print the results
-    popular_start_station, popular_end_station = popular_stations(city)
-    print(popular_start_station)
-    print(popular_end_station)
-
-    print("That took %s seconds." % (time.time() - start_time))
-    print("Calculating the next statistic...")
-    start_time = time.time()
-
-    # What is the most popular trip?
-    # call popular_trip function and print the results
-    result = popular_trip(city)
-    print(result)
-
-    print("That took %s seconds." % (time.time() - start_time))
-    print("Calculating the next statistic...")
-    start_time = time.time()
-
-    # What are the counts of each user type?
-    # call users function and print the results
-    result = users(city)
-    print(result)
-
-    print("That took %s seconds." % (time.time() - start_time))
-    print("Calculating the next statistic...")
-    start_time = time.time()
-
-    # What are the counts of gender?
-    # call gender function and print the results
-    result = gender(city)
-    if result is not None:
-        print(result)
-    else:
-        print("No gender data found")
-
-    print("That took %s seconds." % (time.time() - start_time))
-    print("Calculating the next statistic...")
-    start_time = time.time()
-
-    # What are the earliest (i.e. oldest user), most recent (i.e. youngest user), and
-    # most popular birth years?
-    # call birth_years function and print the results
-    result = birth_years(city)
-    if result:
-        earliest_birth_year, most_recent_birth_year, most_popular_birth_year = result
-        print(earliest_birth_year)
-        print(most_recent_birth_year)
-        print(most_popular_birth_year)
-    else:
-        print("No birth year data found")
-
-    print("That took %s seconds." % (time.time() - start_time))
-
-    # Display five lines of data at a time if user specifies that they would like to
+    calculate_statistic(popular_hour, city)
+    calculate_statistic(popular_trip, city)
+    calculate_statistic(popular_stations, city)
+    calculate_statistic(users, city)
+    calculate_statistic(gender, city)
+    calculate_statistic(birth_years, city)
     display_data(city)
 
-    # Restart?
     restart = input('\nWould you like to restart? Type \'yes\' or \'no\'.\n')
     if restart.lower() == 'yes':
         statistics()
